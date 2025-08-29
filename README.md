@@ -48,8 +48,9 @@ python -m venv env
 pip install -r requirements.txt
 ```
 - Execute o programa com ``` python main.py ```
-
-- ```ou python -m uvicorn main:app --reload```
+ ```
+- ou python -m uvicorn main:app --reload
+```
 
 
 Para uma melhor navegação, use a API pelas interfaces html.

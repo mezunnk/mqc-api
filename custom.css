@@ -1,0 +1,116 @@
+/* ======= RESET SUAVE ======= */
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+}
+
+
+/* ======= HEADER ======= */
+
+.zh-header-container {
+    background: linear-gradient(90deg, #1a1a1a, #333);
+    border-bottom: 2px solid #444;
+}
+
+.zh-header-container .logo img {
+    max-height: 40px;
+}
+
+.zh-header-container h1,
+.zh-header-container span {
+    color: #f5f5f5 !important;
+}
+
+
+/* ======= MENU LATERAL ======= */
+
+.zh-menu-container {
+    background: #1c1c1c !important;
+    border-right: 1px solid #444;
+}
+
+.zh-main-menu .menu-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #bbb !important;
+    padding: 12px 16px;
+}
+
+.zh-main-menu .menu-item {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #ddd !important;
+    transition: background 0.2s, padding-left 0.2s;
+}
+
+.zh-main-menu .menu-item:hover {
+    background: #333;
+    padding-left: 20px;
+    color: #fff !important;
+}
+
+
+/* ======= GRID DE LISTAGEM ======= */
+
+.zh-new-grid .header {
+    background-color: #222 !important;
+    color: #fff !important;
+    font-weight: bold;
+    border-bottom: 2px solid #444;
+    text-transform: uppercase;
+}
+
+.zh-new-grid .tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.zh-new-grid .tr:hover {
+    background: #f9f9f9;
+}
+
+.zh-standard-column span {
+    font-size: 14px;
+    color: #444 !important;
+}
+
+
+/* ======= BOTÕES ======= */
+
+button,
+.zh-button {
+    background: #333 !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+button:hover,
+.zh-button:hover {
+    background: #555 !important;
+}
+
+
+/* ======= SCROLLBAR ======= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1c1c1c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}

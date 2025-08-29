@@ -1,0 +1,261 @@
+{
+  "info": {
+    "name": "MaisQueCafe API",
+    "_postman_id": "d1fbb1f2-8c1e-4c20-bb5b-000000000001",
+    "description": "Coleção pronta pra testar o fluxo completo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Criar Unidade",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/unidades",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "unidades"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"UNI-01\",\n  \"nome\": \"Sorocaba Centro\",\n  \"cnpj\": \"00.000.000/0001-00\"\n}"
+        }
+      }
+    },
+    {
+      "name": "02 - Criar Fornecedor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/fornecedores",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "fornecedores"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"FOR-CAFE\",\n  \"razao_social\": \"Cafés Bom Grão\",\n  \"cnpj\": \"11.111.111/0001-11\",\n  \"email_pedidos\": \"compras@bomgrao.com\"\n}"
+        }
+      }
+    },
+    {
+      "name": "03 - Criar Produto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/produtos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "produtos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"CAF-250G\",\n  \"nome\": \"Café Torrado 250g\",\n  \"unidade_medida\": \"UN\",\n  \"fornecedor_id\": 1,\n  \"preco\": 18.9\n}"
+        }
+      }
+    },
+    {
+      "name": "04 - Criar Limite",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/limites",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "limites"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"unidade_id\": 1,\n  \"produto_id\": 1,\n  \"minimo\": 5,\n  \"maximo\": 50\n}"
+        }
+      }
+    },
+    {
+      "name": "05 - Criar Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"unidade_id\": 1,\n  \"gerente_nome\": \"Luan\",\n  \"contato\": \"(15) 99999-0000\",\n  \"fornecedor_id\": 1,\n  \"desejado_para\": \"2025-09-01\",\n  \"observacoes\": \"sem observações\",\n  \"itens\": [\n    {\n      \"produto_id\": 1,\n      \"quantidade\": 10\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "06 - Enviar Pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/1/enviar",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "1",
+            "enviar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 - Aprovar Pedido (se pendente)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/1/aprovar",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "1",
+            "aprovar"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"decisor\": \"Matriz\",\n  \"aprovado\": true\n}"
+        }
+      }
+    },
+    {
+      "name": "08 - Registrar Recebimento",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos/1/recebimentos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos",
+            "1",
+            "recebimentos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data_recebimento\": \"2025-09-02\",\n  \"quantidade_recebida\": 10\n}"
+        }
+      }
+    },
+    {
+      "name": "09 - Listar Pedidos do mês",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "dev-123"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pedidos?mes=9&ano=2025",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pedidos"
+          ],
+          "query": [
+            {
+              "key": "mes",
+              "value": "9"
+            },
+            {
+              "key": "ano",
+              "value": "2025"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    }
+  ]
+}

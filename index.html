@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel - MaisQueCafe</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <header>
+    <h1>MaisQueCafe • Painel • <a href="OrderPage/pedidos.html">Página de pedidos</a></h1>
+    <div class="row">
+      <input id="base" value="http://127.0.0.1:8000" title="URL da API">
+      <input id="key" value="dev-123" title="x-api-key">
+      <button onclick="ping()">Conectar</button>
+      <span id="ping" class="muted"></span>
+    </div>
+  </header>
+  <main>
+    <nav>
+      <div class="item active" data-tab="fornecedores" onclick="selectTab(this)">Fornecedores</div>
+      <div class="item" data-tab="unidades" onclick="selectTab(this)">Unidades</div>
+      <div class="item" data-tab="produtos" onclick="selectTab(this)">Produtos</div>
+      <div class="item" data-tab="limites" onclick="selectTab(this)">Limites</div>
+      <div class="item" data-tab="pedidos" onclick="selectTab(this)">Pedidos</div>
+    </nav>
+    <section>
+      <div id="tab-fornecedores">
+        <div class="card">
+          <h3>Novo fornecedor</h3>
+          <div class="grid">
+            <input id="f-codigo" placeholder="código (ex.: FOR-CAFE)">
+            <input id="f-razao" placeholder="razão social">
+            <input id="f-cnpj" placeholder="cnpj (opcional)">
+            <input id="f-email" placeholder="email de pedidos (opcional)">
+          </div>
+          <div class="spacer"></div>
+          <div class="right"><button onclick="criarFornecedor()">Cadastrar</button></div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <h3>Fornecedores</h3>
+            <button onclick="listarFornecedores()">Atualizar</button>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Código</th><th>Razão social</th><th>E-mail</th><th></th></tr></thead>
+            <tbody id="fornecedores-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-unidades" style="display:none">
+        <div class="card">
+          <h3>Nova unidade</h3>
+          <div class="grid">
+            <input id="u-codigo" placeholder="código (ex.: UNI-01)">
+            <input id="u-nome" placeholder="nome">
+            <input id="u-cnpj" placeholder="cnpj (opcional)">
+            <input id="u-cc" placeholder="centro de custo (opcional)">
+          </div>
+          <div class="spacer"></div>
+          <div class="right"><button onclick="criarUnidade()">Cadastrar</button></div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <h3>Unidades</h3>
+            <button onclick="listarUnidades()">Atualizar</button>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Código</th><th>Nome</th><th>CNPJ</th><th></th></tr></thead>
+            <tbody id="unidades-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-produtos" style="display:none">
+        <div class="card">
+          <h3>Novo produto</h3>
+          <div class="grid">
+            <input id="p-codigo" placeholder="código (ex.: CAF-250G)">
+            <input id="p-nome" placeholder="nome">
+            <input id="p-um" placeholder="unidade (UN, CX...)" value="UN">
+            <input id="p-preco" type="number" step="0.01" placeholder="preço">
+            <select id="p-fornecedor"></select>
+          </div>
+          <div class="spacer"></div>
+          <div class="right"><button onclick="criarProduto()">Cadastrar</button></div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <h3>Produtos</h3>
+            <button onclick="listarProdutos()">Atualizar</button>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Código</th><th>Nome</th><th>UM</th><th>Preço</th><th>Fornecedor</th><th></th></tr></thead>
+            <tbody id="produtos-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-limites" style="display:none">
+        <div class="card">
+          <h3>Novo limite</h3>
+          <div class="grid">
+            <select id="l-unidade"></select>
+            <select id="l-produto"></select>
+            <input id="l-min" type="number" step="0.01" placeholder="mínimo">
+            <input id="l-max" type="number" step="0.01" placeholder="máximo">
+          </div>
+          <div class="spacer"></div>
+          <div class="right"><button onclick="criarLimite()">Cadastrar</button></div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <h3>Limites</h3>
+            <button onclick="listarLimites()">Atualizar</button>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Unidade</th><th>Produto</th><th>Mín</th><th>Máx</th><th></th></tr></thead>
+            <tbody id="limites-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-pedidos" style="display:none">
+        <div class="card">
+          <h3>Novo pedido</h3>
+          <div class="grid">
+            <select id="pd-unidade"></select>
+            <select id="pd-fornecedor" onchange="carregarProdutosFornecedor()"></select>
+            <input id="pd-gerente" placeholder="gerente">
+            <input id="pd-contato" placeholder="contato">
+            <input id="pd-data" placeholder="desejado para (AAAA-MM-DD)">
+          </div>
+          <div class="spacer"></div>
+          <div class="card" style="background:#12161f">
+            <div class="row" style="justify-content:space-between">
+              <strong>Itens</strong>
+              <button onclick="addItem()">+ Item</button>
+            </div>
+            <table>
+              <thead><tr><th>Produto</th><th>Qtd</th><th>Preço (opcional)</th><th></th></tr></thead>
+              <tbody id="itens-body"></tbody>
+            </table>
+          </div>
+          <div class="right"><button onclick="criarPedido()">Criar pedido</button></div>
+          <pre id="pedido-out" class="muted small"></pre>
+        </div>
+
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <h3>Pedidos do mês</h3>
+            <div class="row">
+              <input id="mes" type="number" min="1" max="12" style="width:90px">
+              <input id="ano" type="number" style="width:110px">
+              <button onclick="listarPedidos()">Atualizar</button>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Criação</th><th>Unidade</th><th>Fornecedor</th><th>Status</th><th>Total</th><th>Ações</th></tr></thead>
+            <tbody id="pedidos-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script/script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+

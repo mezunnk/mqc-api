@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Pedido rápido - MaisQueCafe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/pedidos.css">
+</head>
+
+<body>
+    <h1>Pedido rápido</h1>
+    <p class="muted">Este formulário envia direto para a API local (<code>http://127.0.0.1:8000</code>). Ajuste a chave abaixo.</p>
+    <p><a href="../index.html">Volte ao Painel</a></p>
+    <div class="card">
+        <label>URL da API</label>
+        <input id="api" value="http://127.0.0.1:8000">
+        <label>Chave (x-api-key)</label>
+        <input id="key" value="dev-123">
+    </div>
+
+    <div class="card">
+        <div class="row">
+            <div>
+                <label>ID da Unidade</label>
+                <input id="unidade_id" placeholder="ex.: 1">
+            </div>
+            <div>
+                <label>ID do Fornecedor</label>
+                <input id="fornecedor_id" placeholder="ex.: 1">
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label>Gerente</label>
+                <input id="gerente" placeholder="Nome do gerente">
+            </div>
+            <div>
+                <label>Contato</label>
+                <input id="contato" placeholder="cel/email">
+            </div>
+        </div>
+        <label>Desejado para (AAAA-MM-DD)</label>
+        <input id="desejado" placeholder="2025-09-01">
+        <label>Observações</label>
+        <textarea id="obs" rows="2"></textarea>
+    </div>
+
+    <div class="card">
+        <h3>Itens</h3>
+        <table id="itens">
+            <thead>
+                <tr>
+                    <th>Produto ID</th>
+                    <th>Qtd</th>
+                    <th>Preço (opcional)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="addItem()">+ Adicionar item</button>
+    </div>
+
+    <div class="card">
+        <button onclick="enviar()">Enviar pedido</button>
+        <pre id="out" class="muted" style="white-space:pre-wrap;margin-top:12px"></pre>
+    </div>
+
+    <script src="../script/pedidos.js"></script>
+</body>
+
+</html>
